@@ -1,7 +1,17 @@
-
+// Avoid server side code :
+// https://github.com/ipython/ipython/issues/2780
 var show_gist_link = function(type,data){
     var dialog = $('<div/>');
     dialog.html('you can see this notebook at '+data.data);
+
+    if(IPython.notebook.metadata._draft == undefined){
+        IPython.notebook.metadata._draft = {}
+    }
+
+    if(IPython.notebook.metadata._draft.nbviewer_url == undefined){
+        IPython.notebook.metadata._draft.nbviewer_url = data.data
+    }
+
     $(document).append(dialog);
     dialog.dialog({
         resizable: false,
